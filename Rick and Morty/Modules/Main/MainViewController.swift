@@ -13,6 +13,15 @@ class MainViewController: BaseViewController {
     super.viewDidLoad()
     
     // Do any additional setup after loading the view.
+    
+    Task {
+      do {
+        let res = try await NetworkAdapter.getCharacter(for: nil)
+        print("test")
+      } catch {
+        print(error.localizedDescription)
+      }
+    }
   }
   
 //  func addUIComponents() {}
