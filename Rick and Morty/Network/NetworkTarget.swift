@@ -10,7 +10,6 @@ import Moya
 
 enum NetworkTarget {
   case getCharacter(page: Int?)
-//  case news(_ model: NewsModel)
 }
 extension NetworkTarget: TargetType {
   var actionName: String {

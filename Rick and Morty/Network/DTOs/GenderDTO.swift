@@ -7,6 +7,7 @@
 
 enum GenderDTO: String, Codable {
   case female = "Female"
+  case genderless = "Genderless"
   case male = "Male"
   case unknown = "unknown"
 }

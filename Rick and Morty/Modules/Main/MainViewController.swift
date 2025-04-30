@@ -8,20 +8,12 @@
 import UIKit
 
 class MainViewController: BaseViewController {
-  
+  private lazy var viewModel = MainViewModel(delegate: self)
   override func viewDidLoad() {
     super.viewDidLoad()
     
     // Do any additional setup after loading the view.
-    
-    Task {
-      do {
-        let res = try await NetworkAdapter.getCharacter(for: nil)
-        print("test")
-      } catch {
-        print(error.localizedDescription)
-      }
-    }
+    viewModel.viewDidLoad()
   }
   
 //  func addUIComponents() {}
@@ -39,4 +31,10 @@ class MainViewController: BaseViewController {
 //MARK: - UI elements creating
 private extension MainViewController {
   
+}
+//MARK: - MainViewModelDelegate
+extension MainViewController: MainViewModelDelegate {
+  func dataSourceDidChange() {
+    print("dataSourceDidChange")
+  }
 }

@@ -9,7 +9,7 @@ struct ResultDTO: Codable {
   let id: Int
   let name: String
   let status: StatusDTO
-  let species: SpeciesDTO
+  let species: String?
   let type: String
   let gender: GenderDTO
   let origin, location: LocationDTO
