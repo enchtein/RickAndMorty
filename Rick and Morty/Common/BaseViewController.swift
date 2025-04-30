@@ -27,7 +27,7 @@ class BaseViewController: UIViewController {
   }
   
   private final func setupBaseUISettings() {
-//    view.backgroundColor = AppColor.backgroundOne
+    view.backgroundColor = AppColor.backgroundOne
   }
   private final func setupUI() {
     addUIComponents()

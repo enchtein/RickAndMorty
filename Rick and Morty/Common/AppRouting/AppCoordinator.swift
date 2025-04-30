@@ -26,15 +26,6 @@ final class AppCoordinator: NSObject {
     prepair(currentNavigator)
     currentNavigator.setViewControllers([instantiate(.main)], animated: true)
   }
-  func showWelcome(isPrepairNeeded: Bool = true) {
-    guard let currentNavigator else { fatalError("currentNavigator - is not initilized") }
-    
-    if isPrepairNeeded {
-      prepair(currentNavigator)
-    }
-    
-    currentNavigator.setViewControllers([instantiate(.onBoarding)], animated: true)
-  }
   
   func push(_ controller: AppViewController, animated: Bool = true) {
     let vc = instantiate(controller)
@@ -58,6 +49,29 @@ final class AppCoordinator: NSObject {
   }
 }
 
+//MARK: - UI Helpers
+private extension AppCoordinator {
+  func setupNavigationControllerAppearance() {
+    guard let currentNavigator else { return }
+    currentNavigator.setNavigationBarHidden(false, animated: false)
+    
+    // Navigation Bar background color
+    let appearance = UINavigationBarAppearance()
+    
+    appearance.configureWithOpaqueBackground()
+    appearance.shadowColor = .clear
+    appearance.shadowImage = UIImage()
+    
+    appearance.backgroundColor = Constants.bgColor
+    
+    // setup title font color
+    let titleAttribute = [NSAttributedString.Key.font: Constants.font, NSAttributedString.Key.foregroundColor: Constants.fontColor]
+    appearance.titleTextAttributes = titleAttribute
+    
+    currentNavigator.navigationBar.standardAppearance = appearance
+    currentNavigator.navigationBar.scrollEdgeAppearance = appearance
+  }
+}
 //MARK: - Helpers
 extension AppCoordinator {
   private func instantiate(_ controller: AppViewController) -> UIViewController {
@@ -66,6 +80,8 @@ extension AppCoordinator {
 //      return SplashScreenViewController.createFromStoryboard()
 //    case .onBoarding:
 //      return OnBoardingViewController.createFromStoryboard()
+    case .main:
+      return MainViewController()
     default:
       let vc = UIViewController()
       vc.view.backgroundColor = .green
@@ -74,6 +90,17 @@ extension AppCoordinator {
   }
   private func prepair(_ navVC: UINavigationController) {
     navVC.popToRootViewController(animated: true)
-    navVC.setNavigationBarHidden(true, animated: true)
+    setupNavigationControllerAppearance()
+  }
+}
+
+//MARK: - Constants
+fileprivate struct Constants: CommonSettings {
+  static let bgColor = AppColor.cardBg
+  static let fontColor = AppColor.mainText
+  
+  static var font: UIFont {
+    let fontSize = sizeProportion(for: 25.0, minSize: 20.0)
+    return AppFont.font(type: .bold, size: fontSize)
   }
 }
