@@ -76,9 +76,32 @@ private extension MainViewModel {
     Task {
       do {
         let info = try await NetworkAdapter.getCharacter(for: page)
+        saveToDB(info, for: page)
+        
         updateInfoAndDataSource(with: info)
       } catch {
-        print(error.localizedDescription)
+        debugPrint("can`t fetch CharacterDTO from server \(error)")
+        fetchDBInfo(for: page)
+      }
+    }
+  }
+}
+//MARK: - CoreData layer
+private extension MainViewModel {
+  func saveToDB(_ character: CharacterDTO, for page: Int?) {
+    Task {
+      CoreDataService.shared.save(character, at: page ?? 0)
+    }
+  }
+  func fetchDBInfo(for page: Int?) {
+    Task {
+      do {
+        let character = try CoreDataService.shared.fetch(page: page ?? 0)
+        if let character {
+          updateInfoAndDataSource(with: character)
+        }
+      } catch {
+        debugPrint("can`t fetch CharacterDTOObject from db \(error)")
       }
     }
   }

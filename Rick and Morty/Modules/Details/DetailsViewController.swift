@@ -94,8 +94,7 @@ final class DetailsViewController: BaseViewController {
     let margins = view.safeAreaLayoutGuide
     defaultContentContainer.translatesAutoresizingMaskIntoConstraints = false
     defaultContentContainer.topAnchor.constraint(equalTo: margins.topAnchor, constant: Constants.baseSideIndent).isActive = true
-    defaultContentContainerLeading = NSLayoutConstraint(item: defaultContentContainer, attribute: .leading, relatedBy: .equal, toItem: margins, attribute: .leading, multiplier: 1.0, constant: Constants.currentSideIndent)
-    defaultContentContainerLeading.isActive = true
+    defaultContentContainer.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: Constants.baseSideIndent).isActive = true
     defaultContentContainer.centerXAnchor.constraint(equalTo: margins.centerXAnchor).isActive = true
     
     additionalContentContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -357,20 +356,5 @@ fileprivate struct Constants: CommonSettings {
   static var titleFont: UIFont {
     let fontSize = sizeProportion(for: 16.0, minSize: 12.0)
     return AppFont.font(type: .light, size: fontSize)
-  }
-  
-  private static var minIndent: CGFloat { baseSideIndent }
-  private static var safeArea: UIEdgeInsets {
-    UIApplication.shared.appWindow?.safeAreaInsets ?? .zero
-  }
-  
-  private static var currentMaxOrientationHIndent: CGFloat {
-    let hMax = max(safeArea.left, safeArea.right)
-    let vMax = max(safeArea.top, safeArea.bottom)
-    return max(hMax, vMax)
-  }
-  static var currentSideIndent: CGFloat {
-    let maxHIndent: CGFloat = currentMaxOrientationHIndent
-    return UIDevice.current.orientation.isPortrait ? minIndent : max(minIndent, maxHIndent)
   }
 }

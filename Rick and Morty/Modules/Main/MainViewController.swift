@@ -9,7 +9,6 @@ import UIKit
 
 final class MainViewController: BaseViewController {
   private lazy var cardTable = createCartTableView()
-  private lazy var cardTableLeading = NSLayoutConstraint(item: cardTable, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: Constants.currentSideIndent)
   
   private lazy var viewModel = MainViewModel(delegate: self)
   override func viewDidLoad() {
@@ -31,19 +30,10 @@ final class MainViewController: BaseViewController {
   override func setupConstraintsConstants() {
     cardTable.translatesAutoresizingMaskIntoConstraints = false
     cardTable.topAnchor.constraint(equalTo: view.topAnchor, constant: .zero).isActive = true
-    
-    cardTableLeading.constant = Constants.currentSideIndent
-    cardTableLeading.isActive = true
+    cardTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.baseSideIndent).isActive = true
     cardTable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     
     cardTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: .zero).isActive = true
-  }
-  
-  override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
-    super.viewWillTransition(to: size, with: coordinator)
-    
-    cardTableLeading.constant = Constants.currentSideIndent
-    cardTable.invalidateIntrinsicContentSize()
   }
 }
 
@@ -107,19 +97,4 @@ extension MainViewController: MainViewModelDelegate {
 }
 
 //MARK: - Constants
-fileprivate struct Constants: CommonSettings {
-  private static var minIndent: CGFloat { baseSideIndent }
-  private static var safeArea: UIEdgeInsets {
-    UIApplication.shared.appWindow?.safeAreaInsets ?? .zero
-  }
-  
-  private static var currentMaxOrientationHIndent: CGFloat {
-    let hMax = max(safeArea.left, safeArea.right)
-    let vMax = max(safeArea.top, safeArea.bottom)
-    return max(hMax, vMax)
-  }
-  static var currentSideIndent: CGFloat {
-    let maxHIndent: CGFloat = currentMaxOrientationHIndent
-    return UIDevice.current.orientation.isPortrait ? minIndent : max(minIndent, maxHIndent)
-  }
-}
+fileprivate struct Constants: CommonSettings { }
