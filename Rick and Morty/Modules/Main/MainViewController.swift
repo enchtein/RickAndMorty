@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import Toast
 
 final class MainViewController: BaseViewController {
   private lazy var cardTable = createCartTableView()
+  private lazy var refreshControl = UIRefreshControl()
   
   private lazy var viewModel = MainViewModel(delegate: self)
+  
+  private var isToastShown = false
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -34,6 +39,16 @@ final class MainViewController: BaseViewController {
     cardTable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     
     cardTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: .zero).isActive = true
+  }
+  override func additionalUISettings() {
+    refreshControl.attributedTitle = NSAttributedString(string: MainTitles.pullToRefresh.localized)
+       refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    cardTable.addSubview(refreshControl) // not required when using UITableViewController
+  }
+  
+  @objc func refresh(_ sender: UIRefreshControl) {
+     // Code to refresh table view
+    viewModel.reloadData()
   }
 }
 
@@ -91,8 +106,35 @@ private extension MainViewController {
 
 //MARK: - MainViewModelDelegate
 extension MainViewController: MainViewModelDelegate {
+  func showToast(for type: InfoProcessingToastType) {
+    refreshControl.endRefreshing()
+    
+    guard !isToastShown else { return }
+    let toast = Toast.default(image: nil, title: type.title, subtitle: type.subtitle)
+    toast.delegate = self
+    
+    toast.show()
+  }
+  
   func dataSourceDidChange() {
+    refreshControl.endRefreshing()
     cardTable.reloadData()
+  }
+}
+
+//MARK: - ToastDelegate
+extension MainViewController: ToastDelegate {
+  func willShowToast(_ toast: Toast) {
+    isToastShown = true
+  }
+  func didShowToast(_ toast: Toast) {
+    debugPrint("didShowToast")
+  }
+  func willCloseToast(_ toast: Toast) {
+    debugPrint("willCloseToast")
+  }
+  func didCloseToast(_ toast: Toast) {
+    isToastShown = false
   }
 }
 

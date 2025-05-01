@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8A1A8C842DC227520073055E /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 8A1A8C832DC227520073055E /* Moya */; };
+		8A8ED9032DC42D8400EB0CF2 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 8A8ED9022DC42D8400EB0CF2 /* Toast */; };
 		8AF2D36B2DC377BE0098D066 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8AF2D36A2DC377BE0098D066 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A8ED9032DC42D8400EB0CF2 /* Toast in Frameworks */,
 				8AF2D36B2DC377BE0098D066 /* Kingfisher in Frameworks */,
 				8A1A8C842DC227520073055E /* Moya in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				8A1A8C832DC227520073055E /* Moya */,
 				8AF2D36A2DC377BE0098D066 /* Kingfisher */,
+				8A8ED9022DC42D8400EB0CF2 /* Toast */,
 			);
 			productName = "Clear Project";
 			productReference = 8A0EA5E22CEA007900F00682 /* Rick and Morty.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				8A1A8C822DC227520073055E /* XCRemoteSwiftPackageReference "Moya" */,
 				8AF2D3692DC377BE0098D066 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				8A8ED9012DC42D8400EB0CF2 /* XCRemoteSwiftPackageReference "Toast" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8A0EA5E32CEA007900F00682 /* Products */;
@@ -366,6 +370,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		8A8ED9012DC42D8400EB0CF2 /* XCRemoteSwiftPackageReference "Toast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Hengyu/Toast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		8AF2D3692DC377BE0098D066 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -381,6 +393,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8A1A8C822DC227520073055E /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		8A8ED9022DC42D8400EB0CF2 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A8ED9012DC42D8400EB0CF2 /* XCRemoteSwiftPackageReference "Toast" */;
+			productName = Toast;
 		};
 		8AF2D36A2DC377BE0098D066 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

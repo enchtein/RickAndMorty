@@ -1,5 +1,5 @@
 {
-  "originHash" : "13b38b780b7089a03bce42a4f9f9814f6c641d6110bee986b5022ba486ce9a48",
+  "originHash" : "20dcf1916f169ed96a76446caed4ca3f75eeb5567afca75787ef4994df20f7ee",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -44,6 +44,15 @@
       "state" : {
         "revision" : "5dd1907d64f0d36f158f61a466bab75067224893",
         "version" : "6.9.0"
+      }
+    },
+    {
+      "identity" : "toast",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Hengyu/Toast.git",
+      "state" : {
+        "revision" : "980bcb085bbed77b8035f14e07611e66e739134a",
+        "version" : "2.0.0"
       }
     }
   ],

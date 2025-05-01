@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "dbError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smth failure with DB"
+          }
+        }
+      }
+    },
     "locationTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19,6 +30,61 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More info by tap"
+          }
+        }
+      }
+    },
+    "networkError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internet connection error"
+          }
+        }
+      }
+    },
+    "networkErrorMsg" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info get from DB"
+          }
+        }
+      }
+    },
+    "noDataInDB" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No saved Data in DB"
+          }
+        }
+      }
+    },
+    "noDataInDBMsg" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check internet and pull to refresh"
+          }
+        }
+      }
+    },
+    "pullToRefresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pull to refresh"
           }
         }
       }

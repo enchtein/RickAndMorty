@@ -9,4 +9,13 @@ enum MainTitles: String, Localizable {
   case title
   case locationTitle
   case moreInfo
+  
+  case pullToRefresh
+  
+  //InfoProcessingToastType
+  case networkError
+  case networkErrorMsg
+  case noDataInDB
+  case noDataInDBMsg
+  case dbError
 }

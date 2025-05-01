@@ -9,6 +9,7 @@ import Foundation
 
 protocol MainViewModelDelegate: AnyObject {
   func dataSourceDidChange()
+  func showToast(for type: InfoProcessingToastType)
 }
 
 @MainActor
@@ -23,6 +24,13 @@ final class MainViewModel {
   }
   
   func viewDidLoad() {
+    fetchInfo()
+  }
+  
+  func reloadData() {
+    info.removeAll()
+    dataSource.removeAll()
+    
     fetchInfo()
   }
 }
@@ -99,9 +107,13 @@ private extension MainViewModel {
         let character = try CoreDataService.shared.fetch(page: page ?? 0)
         if let character {
           updateInfoAndDataSource(with: character)
+          delegate?.showToast(for: .networkError)
+        } else {
+          delegate?.showToast(for: .noDataInDB)
         }
       } catch {
         debugPrint("can`t fetch CharacterDTOObject from db \(error)")
+        delegate?.showToast(for: .dbError)
       }
     }
   }
