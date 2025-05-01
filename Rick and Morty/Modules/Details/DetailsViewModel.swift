@@ -6,7 +6,7 @@
 //
 
 protocol DetailsViewModelDelegate: AnyObject {
-  
+  func infoDidChange(to info: ResultDTO)
 }
 final class DetailsViewModel {
   private var info: ResultDTO
@@ -18,6 +18,6 @@ final class DetailsViewModel {
   }
   
   func viewDidLoad() {
-    
+    delegate?.infoDidChange(to: info)
   }
 }

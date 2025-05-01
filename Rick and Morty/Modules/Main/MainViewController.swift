@@ -108,7 +108,7 @@ extension MainViewController: MainViewModelDelegate {
 
 //MARK: - Constants
 fileprivate struct Constants: CommonSettings {
-  static var minIndent: CGFloat { baseSideIndent }
+  private static var minIndent: CGFloat { baseSideIndent }
   private static var safeArea: UIEdgeInsets {
     UIApplication.shared.appWindow?.safeAreaInsets ?? .zero
   }

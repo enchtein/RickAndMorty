@@ -152,7 +152,7 @@ private extension CardTableViewCell {
   }
   func createStatusLabel() -> UILabel {
     let label = UILabel()
-    label.font = Constants.lableFont
+    label.font = Constants.labelFont
     label.textColor = AppColor.mainText
     
     return label
@@ -168,7 +168,7 @@ private extension CardTableViewCell {
   }
   func createLocationLabel() -> UILabel {
     let label = UILabel()
-    label.font = Constants.lableFont
+    label.font = Constants.labelFont
     label.textColor = AppColor.mainText
     label.numberOfLines = 0
     label.adjustsFontSizeToFitWidth = true
@@ -261,7 +261,7 @@ fileprivate struct Constants: CommonSettings {
     let fontSize = sizeProportion(for: 24, minSize: 20)
     return AppFont.font(type: .medium, size: fontSize)
   }
-  static var lableFont: UIFont {
+  static var labelFont: UIFont {
     let fontSize = sizeProportion(for: 18.0, minSize: 14.0)
     return AppFont.font(type: .regular, size: fontSize)
   }

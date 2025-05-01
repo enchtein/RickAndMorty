@@ -7,4 +7,8 @@
 
 enum DetailsTitles: String, Localizable {
   case title
+  
+  case additionalInfo
+  case type
+  case gender
 }
