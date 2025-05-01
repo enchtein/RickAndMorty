@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol CardTableViewCellDelegate: AnyObject {
   func didSelect(_ cell: CardTableViewCell)
@@ -41,7 +42,11 @@ class CardTableViewCell: UITableViewCell {
       delegate?.didSelect(self)
     }
   }
-  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    
+    avatarImageView.image = nil
+  }
   
   private func setupUI() {
     selectionStyle = .none
@@ -102,9 +107,8 @@ private extension CardTableViewCell {
   
   func createAvatarImageView() -> UIImageView {
     let imageView = UIImageView()
-    imageView.contentMode = .scaleAspectFill
+    imageView.contentMode = .center
     imageView.clipsToBounds = true
-    imageView.backgroundColor = .red
     
     return imageView
   }
@@ -210,10 +214,21 @@ private extension CardTableViewCell {
 //MARK: - UI Helpers
 private extension CardTableViewCell {
   func setupColorTheme(according info: ResultDTO) {
+    backgroundColor = .clear
     statusDot.backgroundColor = info.status.color
   }
   func setupImages(according info: ResultDTO) {
+    let placeholder = AppImage.placeholder.withRenderingMode(.alwaysTemplate)
+    avatarImageView.tintColor = AppColor.mainText
     
+    avatarImageView.kf.setImage(with: URL(string: info.image), placeholder: placeholder) { [weak self] result in
+      switch result {
+      case .success(_):
+        self?.avatarImageView.contentMode = .scaleAspectFill
+      case .failure(_):
+        self?.avatarImageView.contentMode = .center
+      }
+    }
   }
 }
 
