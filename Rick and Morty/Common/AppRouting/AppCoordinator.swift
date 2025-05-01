@@ -70,6 +70,8 @@ private extension AppCoordinator {
     
     currentNavigator.navigationBar.standardAppearance = appearance
     currentNavigator.navigationBar.scrollEdgeAppearance = appearance
+    
+    currentNavigator.navigationBar.tintColor = Constants.fontColor
   }
 }
 //MARK: - Helpers
@@ -82,6 +84,8 @@ extension AppCoordinator {
 //      return OnBoardingViewController.createFromStoryboard()
     case .main:
       return MainViewController()
+    case .details(let info):
+      return DetailsViewController(with: info)
     default:
       let vc = UIViewController()
       vc.view.backgroundColor = .green

@@ -11,9 +11,11 @@ import Kingfisher
 protocol CardTableViewCellDelegate: AnyObject {
   func didSelect(_ cell: CardTableViewCell)
 }
-class CardTableViewCell: UITableViewCell {
+
+final class CardTableViewCell: UITableViewCell {
   private lazy var contentContainer = createContentContainer()
   private lazy var avatarImageView = createAvatarImageView()
+  private lazy var avatarImageViewHeight = NSLayoutConstraint(item: avatarImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0)
   private lazy var titlesVStack = createTitlesVStack()
   
   private lazy var nameLabel = createNameLabel()
@@ -42,6 +44,16 @@ class CardTableViewCell: UITableViewCell {
       delegate?.didSelect(self)
     }
   }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    contentContainer.setNeedsLayout()
+    contentContainer.layoutIfNeeded()
+    
+    avatarImageViewHeight.constant = contentContainer.frame.height
+  }
+  
   override func prepareForReuse() {
     super.prepareForReuse()
     
@@ -57,9 +69,9 @@ class CardTableViewCell: UITableViewCell {
     contentContainer.addSubview(avatarImageView)
     avatarImageView.translatesAutoresizingMaskIntoConstraints = false
     avatarImageView.widthAnchor.constraint(equalTo: contentContainer.widthAnchor, multiplier: 0.33).isActive = true
-    avatarImageView.topAnchor.constraint(equalTo: contentContainer.topAnchor).isActive = true
     avatarImageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor).isActive = true
-    avatarImageView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor).isActive = true
+    avatarImageViewHeight.isActive = true
+    avatarImageView.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor).isActive = true
     
     contentContainer.addSubview(titlesVStack)
     titlesVStack.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +79,6 @@ class CardTableViewCell: UITableViewCell {
     titlesVStack.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: Constants.titlesVStackHIndent).isActive = true
     titlesVStack.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor, constant: -Constants.titlesVStackHIndent).isActive = true
     titlesVStack.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -Constants.titlesVStackVIndent).isActive = true
-    
     
     for type in InfoType.allCases {
       let titleVStack = createVStack(for: type)
@@ -201,7 +212,6 @@ private extension CardTableViewCell {
     case .location:
       vStack.addArrangedSubview(createLocationTitle())
       vStack.addArrangedSubview(locationLabel)
-      
     case .firstSeen:
       vStack.alignment = .trailing
       vStack.addArrangedSubview(moreInfoTitle())

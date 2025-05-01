@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: BaseViewController {
+final class MainViewController: BaseViewController {
   private lazy var cardTable = createCartTableView()
   private lazy var cardTableLeading = NSLayoutConstraint(item: cardTable, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: Constants.currentSideIndent)
   
@@ -80,7 +80,8 @@ extension MainViewController: CardTableViewCellDelegate {
   func didSelect(_ cell: CardTableViewCell) {
     guard let cellIndexPath = cardTable.indexPath(for: cell) else { return }
     let info = viewModel.itemForCell(at: cellIndexPath)
-    print("didSelect \(info), GO TO NEXT VC")
+    
+    AppCoordinator.shared.push(.details(info))
   }
 }
 
