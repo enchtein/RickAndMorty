@@ -7,4 +7,6 @@
 
 enum MainTitles: String, Localizable {
   case title
+  case locationTitle
+  case moreInfo
 }

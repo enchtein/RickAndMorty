@@ -26,9 +26,14 @@ final class MainViewModel {
     fetchInfo()
   }
 }
+
 //MARK: - API (DataSource)
 extension MainViewModel {
-  func runPaginationIfNeeded() {
+  func runPaginationIfNeeded(for indexPath: IndexPath) {
+    let index = itemIndex(from: indexPath)
+    let flagIndex = dataSource.index(index, offsetBy: 5)
+    guard dataSource.count < flagIndex else { return }
+    
     let nextPagePath = info.last?.info.next
     guard let nextPagePath else { return }
     
@@ -38,7 +43,17 @@ extension MainViewModel {
     guard let pageNumberStr = pageItem?.value, let pageNumber = Int(pageNumberStr) else { return }
     fetchInfo(for: pageNumber)
   }
+  
+  
+  func numberOfItemsInSection(_ section: Int) -> Int {
+    dataSource.count
+  }
+  func itemForCell(at indexPath: IndexPath) -> ResultDTO {
+    let index = itemIndex(from: indexPath)
+    return dataSource[index]
+  }
 }
+
 //MARK: - Helpers (DataSource)
 private extension MainViewModel {
   func updateInfoAndDataSource(with newInfo: CharacterDTO) {
@@ -48,10 +63,13 @@ private extension MainViewModel {
     dataSource = newDataSource
     
     delegate?.dataSourceDidChange()
-    
-    runPaginationIfNeeded()//TEMP
+  }
+  
+  func itemIndex(from indexPath: IndexPath) -> Int {
+    indexPath.row
   }
 }
+
 //MARK: - Network layer
 private extension MainViewModel {
   func fetchInfo(for page: Int? = nil) {
