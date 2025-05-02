@@ -78,18 +78,12 @@ private extension AppCoordinator {
 extension AppCoordinator {
   private func instantiate(_ controller: AppViewController) -> UIViewController {
     switch controller {
-//    case .splashScreen:
-//      return SplashScreenViewController.createFromStoryboard()
-//    case .onBoarding:
-//      return OnBoardingViewController.createFromStoryboard()
+    case .splashScreen:
+      return SplashScreenViewController()
     case .main:
       return MainViewController()
     case .details(let info):
       return DetailsViewController(with: info)
-    default:
-      let vc = UIViewController()
-      vc.view.backgroundColor = .green
-      return vc
     }
   }
   private func prepair(_ navVC: UINavigationController) {

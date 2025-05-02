@@ -42,12 +42,12 @@ final class MainViewController: BaseViewController {
   }
   override func additionalUISettings() {
     refreshControl.attributedTitle = NSAttributedString(string: MainTitles.pullToRefresh.localized)
-       refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     cardTable.addSubview(refreshControl) // not required when using UITableViewController
   }
   
   @objc func refresh(_ sender: UIRefreshControl) {
-     // Code to refresh table view
+    // Code to refresh table view
     viewModel.reloadData()
   }
 }
